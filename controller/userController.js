@@ -28,7 +28,7 @@ const homePageData=async(req,res)=>{
             "image" :"https://i.ibb.co/qdfB3s6/2.webp",
             "brand" : "DJI",
             }]
-            res.status(200).json(data)
+            res.status(200).json({data})
              
     } catch (error) {
         console.log('home page error ',error)
