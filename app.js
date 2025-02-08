@@ -2,6 +2,7 @@ const express=require('express')
 const dbConnect = require('./config/dbConnect')
 const userRoute=require('./routes/userRoute')
 const adminRoute=require('./routes/adminRoute')
+const authRoute=require('./routes/authRoute')
 const cors=require('cors')
 require('dotenv').config()
 const app=express()
@@ -23,6 +24,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api/',userRoute)
 app.use('/api/admin',adminRoute)
+app.use('/api/auth',authRoute)
 
 app.listen(process.env.PORT,()=>{
     console.log('server running')
