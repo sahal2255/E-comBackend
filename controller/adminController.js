@@ -20,30 +20,39 @@ const adminLogin = async (req, res) => {
       return res.status(401).json({ message: "Invalid Credential" });
     }
 
-    console.log("Admin Logged In succes");
     const accesstoken = generateAccessToken(admin);
     const refreshtoken = generateRefreshToken(admin);
-    res.cookie("refreshToken", refreshtoken, {
+    res.cookie("refreshToken", String(refreshtoken), {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: false,
     });
-    res.cookie("accessToken", accesstoken, {
+    res.cookie("accessToken", String(accesstoken), {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: false,
     });
     res.status(200).json({
       message: "Admin Logged In Successfully",
       success: true,
-      user: { id: admin._id, role: admin.role, email: admin.email },
+      admin: { id: admin._id, role: admin.role, email: admin.email },
     });
   } catch (error) {
     console.log("error in admin login section", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+const adminCheckAuth = async (req, res) => {
+  console.log("Hitting the admin check-auth function");
+  console.log("Admin data:", req.user); // ✅ Debugging
+
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  res.json({ admin: req.user });
+};
 
 module.exports = {
   adminLogin,
+  adminCheckAuth,
+
 };
