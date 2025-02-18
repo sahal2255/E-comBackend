@@ -3,6 +3,7 @@ const dbConnect = require('./config/dbConnect')
 const userRoute=require('./routes/userRoute')
 const adminRoute=require('./routes/adminRoute')
 const authRoute=require('./routes/authRoute')
+const vendorRoute=require('./routes/vendorRoute')
 const cors=require('cors')
 const cookieParser = require('cookie-parser')
 require('dotenv').config()
@@ -27,6 +28,7 @@ app.get('/',(req,res)=>{
 app.use('/api/',userRoute)
 app.use('/api/admin',adminRoute)
 app.use('/api/auth',authRoute)
+app.use('/api/vendor',vendorRoute)
 
 app.listen(process.env.PORT,()=>{
     console.log('server running')
